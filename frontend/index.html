@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Research Tool</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Stock Research Tool</h1>
+            <p>AI-Powered Company Analysis & Investment Recommendations</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('companies')">Ranked Companies</button>
+            <button class="tab-btn" onclick="showTab('algorithm')">Scoring Algorithm</button>
+            <button class="tab-btn" onclick="showTab('research')">Research Analysis</button>
+        </div>
+
+        <!-- Companies Tab -->
+        <div id="companies-tab" class="tab-content active">
+            <div class="section-header">
+                <h2>Ranked Companies</h2>
+                <div class="controls">
+                    <label>Show Top: </label>
+                    <select id="top-n-select" onchange="loadCompanies()">
+                        <option value="">All</option>
+                        <option value="20" selected>Top 20</option>
+                        <option value="50">Top 50</option>
+                        <option value="100">Top 100</option>
+                    </select>
+                    <button onclick="loadCompanies()" class="btn-primary">Refresh</button>
+                </div>
+            </div>
+            
+            <div class="loading" id="companies-loading">Loading companies...</div>
+            <div id="companies-table-container"></div>
+        </div>
+
+        <!-- Algorithm Tab -->
+        <div id="algorithm-tab" class="tab-content">
+            <div class="section-header">
+                <h2>Scoring Algorithm</h2>
+            </div>
+            <div id="algorithm-content" class="loading">Loading algorithm details...</div>
+        </div>
+
+        <!-- Research Tab -->
+        <div id="research-tab" class="tab-content">
+            <div class="section-header">
+                <h2>Research Analysis</h2>
+            </div>
+            
+            <div class="research-form">
+                <div class="form-group">
+                    <label>Select Company:</label>
+                    <select id="company-select" onchange="updateCompanyName()">
+                        <option value="">-- Select a company --</option>
+                    </select>
+                    <input type="text" id="company-name-input" placeholder="Or enter company name manually" onchange="updateCompanySelect()">
+                </div>
+                <button onclick="startResearch()" class="btn-primary btn-large" id="start-research-btn">
+                    🚀 Start Research
+                </button>
+            </div>
+
+            <div id="research-status-container" style="display: none;">
+                <div class="status-header">
+                    <h3>Research Status</h3>
+                    <div id="research-id-display"></div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <div id="progress-text" class="progress-text">Initializing...</div>
+                </div>
+
+                <div class="steps-container" id="steps-container">
+                    <!-- Steps will be populated dynamically -->
+                </div>
+
+                <div id="detailed-progress" class="detailed-progress" style="display: none;">
+                    <h4>Detailed Progress</h4>
+                    <div id="detailed-progress-content"></div>
+                </div>
+
+                <div id="results-container" style="display: none;">
+                    <div class="results-summary" id="results-summary"></div>
+                    <div class="results-actions">
+                        <button onclick="downloadReport()" class="btn-primary">📥 Download Report</button>
+                        <button onclick="viewReport()" class="btn-secondary">👁️ View Report</button>
+                    </div>
+                    <div id="report-preview" class="report-preview markdown-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
+
